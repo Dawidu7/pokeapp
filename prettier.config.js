@@ -3,7 +3,7 @@ const config = {
   arrowParens: "avoid",
   semi: false,
   plugins: ["@trivago/prettier-plugin-sort-imports"],
-  importOrder: ["<THIRD_PARTY_MODULES>", "^@poke/(.*)$", "^[./]"],
+  importOrder: ["^(.*)/env$", "<THIRD_PARTY_MODULES>", "^@poke/(.*)$", "^[./]"],
   importOrderSortSpecifiers: true,
 }
 

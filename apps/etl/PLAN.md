@@ -2,11 +2,11 @@
 
 - [ ] Pokémon Species
 - [ ] Pokémon
-- [ ] Types
-- [ ] Moves
+- [x] Types
+- [x] Moves
 - [ ] PokémonTypes
 - [ ] PokémonMoves
-- [ ] Type Effectiveness
+- [x] Type Effectiveness
 
 # Order
 

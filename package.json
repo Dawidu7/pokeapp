@@ -6,6 +6,13 @@
     "apps/*",
     "packages/*"
   ],
+  "scripts": {
+    "db:push": "bun run --filter @poke/db db:push",
+    "db:studio": "bun run --filter @poke/db db:push",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "etl": "bun run --filter etl run"
+  },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/bun": "latest",

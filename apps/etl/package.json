@@ -3,6 +3,9 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "run": "bun index.ts"
+  },
   "dependencies": {
     "p-queue": "^9.3.3",
     "zod": "^4.6.5"

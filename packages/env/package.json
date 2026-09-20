@@ -1,0 +1,9 @@
+{
+  "name": "@poke/env",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "zod": "^4.6.5"
+  }
+}

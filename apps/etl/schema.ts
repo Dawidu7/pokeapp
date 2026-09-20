@@ -40,8 +40,8 @@ export const TypeSchema = z
   .transform(t => {
     const createDamageRelations = (ids: number[], multiplier: number) =>
       ids.map(id => ({
-        attackingId: t.id,
-        defendingId: id,
+        attackerId: t.id,
+        defenderId: id,
         multiplier,
       }))
 
