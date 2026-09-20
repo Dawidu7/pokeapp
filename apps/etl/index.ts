@@ -1,5 +1,6 @@
 import PQueue from "p-queue"
 import type z from "zod"
+import { buildConflictUpdateSet, closeDb, db, tables } from "@poke/db"
 import * as schemas from "./schema"
 
 /** Extracts and normalizes data from PokéAPI given a Zod schema. */
@@ -65,10 +66,47 @@ async function extract<T extends z.ZodType>(endpoint: string, schema: T) {
 
 async function etl() {
   const types = await extract("type", schemas.TypeSchema)
-  console.log(types[0])
-
   const moves = await extract("move", schemas.MoveSchema)
-  console.log(moves[0])
+
+  await db.transaction(async tx => {
+    await tx
+      .insert(tables.types)
+      .values(types.map(({ id, slug, name }) => ({ id, slug, name })))
+      .onConflictDoUpdate({
+        target: tables.types.id,
+        set: buildConflictUpdateSet(tables.types),
+      })
+
+    await tx
+      .insert(tables.typeEffectivenesses)
+      .values(types.flatMap(({ damageRelations }) => damageRelations))
+      .onConflictDoUpdate({
+        target: [
+          tables.typeEffectivenesses.attackerId,
+          tables.typeEffectivenesses.defenderId,
+        ],
+        set: buildConflictUpdateSet(tables.typeEffectivenesses, [
+          "attackerId",
+          "defenderId",
+        ]),
+      })
+
+    await tx
+      .insert(tables.moves)
+      .values(moves)
+      .onConflictDoUpdate({
+        target: tables.moves.id,
+        set: buildConflictUpdateSet(tables.moves),
+      })
+  })
 }
 
 etl()
+  .catch(err => {
+    console.error("ETL failed: ", err)
+    process.exit(1)
+  })
+  .finally(async () => {
+    await closeDb()
+    process.exit(0)
+  })

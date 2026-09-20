@@ -4,9 +4,10 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "run": "bun index.ts"
+    "run": "bun --env-file=../../.env index.ts"
   },
   "dependencies": {
+    "@poke/db": "workspace:*",
     "p-queue": "^9.3.3",
     "zod": "^4.6.5"
   }
