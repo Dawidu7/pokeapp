@@ -2,5 +2,9 @@
   "name": "etl",
   "module": "index.ts",
   "type": "module",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "p-queue": "^9.3.3",
+    "zod": "^4.6.5"
+  }
 }

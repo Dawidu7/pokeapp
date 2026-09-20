@@ -35,20 +35,7 @@ From:
         "url": "https://pokeapi.co/api/v2/type/9/"
       }
     ],
-    "double_damage_to": [],
-    "no_damage_from": [
-      {
-        "name": "ghost",
-        "url": "https://pokeapi.co/api/v2/type/8/"
-      }
-    ],
-    "half_damage_from": [],
-    "double_damage_from": [
-      {
-        "name": "fighting",
-        "url": "https://pokeapi.co/api/v2/type/2/"
-      }
-    ]
+    "double_damage_to": []
   },
   "names": [
     {
@@ -185,7 +172,7 @@ From:
 ```json
 {
   "id": 1,
-  "slug": "bulbasaur",
+  "name": "bulbasaur",
   "height": 7,
   "order": 1,
   "weight": 69,
