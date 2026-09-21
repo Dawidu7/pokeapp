@@ -1,7 +1,7 @@
 import { getTableColumns, sql } from "drizzle-orm"
 import { type AnyPgTable } from "drizzle-orm/pg-core"
 
-export function buildConflictUpdateSet<
+export function createConflictUpdateSet<
   T extends AnyPgTable,
   K extends keyof T["_"]["columns"],
 >(table: T, excluded: K[] = ["id" as K]) {

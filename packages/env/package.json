@@ -5,5 +5,8 @@
   "private": true,
   "dependencies": {
     "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "dotenv": "^18.0.1"
   }
 }

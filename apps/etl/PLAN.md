@@ -1,11 +1,11 @@
 ## Tables
 
-- [ ] Pokémon Species
-- [ ] Pokémon
+- [x] Pokémon Species
+- [x] Pokémon
 - [x] Types
 - [x] Moves
-- [ ] PokémonTypes
-- [ ] PokémonMoves
+- [x] PokémonTypes
+- [x] PokémonMoves
 - [x] Type Effectiveness
 
 # Order
@@ -165,6 +165,67 @@ To:
 }
 ```
 
+## Pokémon Species
+
+From:
+
+```json
+{
+  "id": 1,
+  "name": "bulbasaur",
+  "order": 1,
+  "generation": {
+    "name": "generation-i",
+    "url": "https://pokeapi.co/api/v2/generation/1/"
+  },
+  "names": [
+    {
+      "name": "Bulbasaur",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      }
+    }
+  ],
+  "flavor_text_entries": [
+    {
+      "flavor_text": "A strange seed was\nplanted on its\nback at birth.\fThe plant sprouts\nand grows with\nthis POKéMON.",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      },
+      "version": {
+        "name": "red",
+        "url": "https://pokeapi.co/api/v2/version/1/"
+      }
+    }
+  ],
+  "genera": [
+    {
+      "genus": "Seed Pokémon",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      }
+    }
+  ]
+}
+```
+
+To:
+
+```json
+{
+  "id": 1,
+  "slug": "bulbasaur",
+  "order": 1,
+  "generation": "generation-i",
+  "name": "Bulbasaur",
+  "flavorText": "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.",
+  "genus": "Seed Pokémon"
+}
+```
+
 ## Pokémon
 
 From:
@@ -174,6 +235,7 @@ From:
   "id": 1,
   "name": "bulbasaur",
   "height": 7,
+  "is_default": true,
   "order": 1,
   "weight": 69,
   "forms": [
@@ -188,32 +250,6 @@ From:
         "name": "razor-wind",
         "url": "https://pokeapi.co/api/v2/move/13/"
       },
-      "version_group_details": [
-        {
-          "level_learned_at": 0,
-          "version_group": {
-            "name": "gold-silver",
-            "url": "https://pokeapi.co/api/v2/version-group/3/"
-          },
-          "move_learn_method": {
-            "name": "egg",
-            "url": "https://pokeapi.co/api/v2/move-learn-method/2/"
-          },
-          "order": null
-        },
-        {
-          "level_learned_at": 0,
-          "version_group": {
-            "name": "crystal",
-            "url": "https://pokeapi.co/api/v2/version-group/4/"
-          },
-          "move_learn_method": {
-            "name": "egg",
-            "url": "https://pokeapi.co/api/v2/move-learn-method/2/"
-          },
-          "order": null
-        }
-      ]
     },
     ...
   ],
@@ -296,6 +332,7 @@ To:
 {
   "id": 1,
   "slug": "bulbasaur",
+  "isDefault": true,
   "order": 1,
   "height": 0.7,
   "weight": 6.9,
@@ -318,82 +355,6 @@ To:
     {
       "slot": 2,
       "typeId": 4
-    }
-  ]
-}
-```
-
-## Pokémon Species
-
-From:
-
-```json
-{
-  "id": 1,
-  "name": "bulbasaur",
-  "order": 1,
-  "generation": {
-    "name": "generation-i",
-    "url": "https://pokeapi.co/api/v2/generation/1/"
-  },
-  "names": [
-    {
-      "name": "Bulbasaur",
-      "language": {
-        "name": "en",
-        "url": "https://pokeapi.co/api/v2/language/9/"
-      }
-    }
-  ],
-  "flavor_text_entries": [
-    {
-      "flavor_text": "A strange seed was\nplanted on its\nback at birth.\fThe plant sprouts\nand grows with\nthis POKéMON.",
-      "language": {
-        "name": "en",
-        "url": "https://pokeapi.co/api/v2/language/9/"
-      },
-      "version": {
-        "name": "red",
-        "url": "https://pokeapi.co/api/v2/version/1/"
-      }
-    }
-  ],
-  "genera": [
-    {
-      "genus": "Seed Pokémon",
-      "language": {
-        "name": "en",
-        "url": "https://pokeapi.co/api/v2/language/9/"
-      }
-    }
-  ],
-  "varieties": [
-    {
-      "is_default": true,
-      "pokemon": {
-        "name": "bulbasaur",
-        "url": "https://pokeapi.co/api/v2/pokemon/1/"
-      }
-    }
-  ]
-}
-```
-
-To:
-
-```json
-{
-  "id": 1,
-  "slug": "bulbasaur",
-  "order": 1,
-  "generation": "generation-i",
-  "name": "Bulbasaur",
-  "flavorText": "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.",
-  "genus": "Seed Pokémon",
-  "varieties": [
-    {
-      "pokemonId": 1,
-      "isDefault": true
     }
   ]
 }

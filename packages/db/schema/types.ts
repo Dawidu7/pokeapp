@@ -2,7 +2,7 @@ import { pgTable, primaryKey } from "drizzle-orm/pg-core"
 
 export const types = pgTable("types", t => ({
   id: t.integer("id").primaryKey(),
-  slug: t.text("slug").notNull(),
+  slug: t.text("slug").notNull().unique(),
   name: t.text("name").notNull(),
 }))
 

@@ -8,5 +8,6 @@ const db = drizzle({ client, schema })
 
 const closeDb = async () => await client.end()
 
-export { db, closeDb, schema as tables }
+export { db, closeDb, schema }
 export * from "./utils"
+export type Tx = Parameters<Parameters<typeof db.transaction>[0]>[0]

@@ -1,61 +1,5 @@
 import * as z from "zod"
-
-export const ApiResourceSchema = z
-  .object({ url: z.url() })
-  .transform(({ url }) => {
-    const id = Number(url.split("/").filter(Boolean).at(-1))
-    if (!id) throw new Error(`Could not extract ID from url`)
-    return id
-  })
-
-export const NamedApiResourceSchema = z
-  .object({ name: z.string() })
-  .transform(({ name }) => name)
-
-const UrlApiResourceSchema = z
-  .array(z.object({ url: z.url() }))
-  .transform(urls => urls.map(({ url }) => url))
-
-export const ResourceListSchema = z
-  .object({
-    results: UrlApiResourceSchema,
-  })
-  .transform(({ results }) => results)
-
-const NameSchema = z
-  .array(z.object({ name: z.string(), language: NamedApiResourceSchema }))
-  .transform(names => names.find(({ language }) => language === "en")?.name)
-
-export const TypeSchema = z
-  .object({
-    id: z.number(),
-    name: z.string(),
-    damage_relations: z.object({
-      no_damage_to: z.array(ApiResourceSchema),
-      half_damage_to: z.array(ApiResourceSchema),
-      double_damage_to: z.array(ApiResourceSchema),
-    }),
-    names: NameSchema,
-  })
-  .transform(t => {
-    const createDamageRelations = (ids: number[], multiplier: number) =>
-      ids.map(id => ({
-        attackerId: t.id,
-        defenderId: id,
-        multiplier,
-      }))
-
-    return {
-      id: t.id,
-      slug: t.name,
-      name: t.names ?? t.name,
-      damageRelations: [
-        ...createDamageRelations(t.damage_relations.no_damage_to, 0),
-        ...createDamageRelations(t.damage_relations.half_damage_to, 0.5),
-        ...createDamageRelations(t.damage_relations.double_damage_to, 2),
-      ],
-    }
-  })
+import { ApiResourceSchema, NameSchema, NamedApiResourceSchema } from "./utils"
 
 export const MoveSchema = z
   .object({
@@ -118,3 +62,5 @@ export const MoveSchema = z
     target: m.target,
     typeId: m.type,
   }))
+
+export type Move = z.infer<typeof MoveSchema>
