@@ -11,5 +11,15 @@ export * from "./types"
 
 export const relations = defineRelations(
   { ...moves, ...pokemon, ...pokemonSpecies, ...types },
-  r => ({}),
+  r => ({
+    pokemonSpecies: {
+      pokemon: r.many.pokemon(),
+    },
+    pokemon: {
+      species: r.one.pokemonSpecies({
+        from: r.pokemon.speciesId,
+        to: r.pokemonSpecies.id,
+      }),
+    },
+  }),
 )

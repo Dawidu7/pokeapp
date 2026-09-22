@@ -1,11 +1,34 @@
-import { Text, render } from "ink"
+import { Box, render, useApp, useInput } from "ink"
+import SelectInput from "ink-select-input"
 import { closeDb } from "@poke/db"
+import { getPokemonList } from "@poke/queries"
 
-function App() {
-  return <Text>Hello World.</Text>
+function App({
+  pokemonList,
+}: {
+  pokemonList: Awaited<ReturnType<typeof getPokemonList>>
+}) {
+  const { exit } = useApp()
+  useInput((input, key) => {
+    if (input === "q") exit()
+  })
+
+  return (
+    <Box>
+      <SelectInput
+        items={pokemonList.map(p => ({
+          label: p.name,
+          value: p,
+          key: p.slug,
+        }))}
+        limit={15}
+      />
+    </Box>
+  )
 }
 
-const { waitUntilExit } = render(<App />)
+const pokemonList = await getPokemonList()
+const { waitUntilExit } = render(<App pokemonList={pokemonList} />)
 
 await waitUntilExit()
 await closeDb()

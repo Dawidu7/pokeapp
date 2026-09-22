@@ -1,6 +1,6 @@
 ## Pokémon List
 
-- [ ] Arrow key navigation
+- [x] Arrow key navigation
 - [ ] Sort options: Dex, Base Stat Total, Alphabetical, Specific Stat?
   - [ ] Ascending/Descending
 - [ ] Cheat sheet under list:
@@ -9,7 +9,7 @@
   - [ ] g - Generation
   - [ ] o - Sort (Order) toggle
   - [ ] x - Clear
-  - [ ] q - Quit
+  - [x] q - Quit
 
 ## Pokémon Details
 

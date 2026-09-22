@@ -1,0 +1,9 @@
+{
+  "name": "@poke/queries",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@poke/db": "workspace:*"
+  }
+}
