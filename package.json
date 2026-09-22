@@ -11,8 +11,9 @@
     "db:studio": "bun --cwd packages/db db:studio",
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
-    "etl": "bun --cwd apps/etl index.ts",
-    "pokedex": "bun --cwd apps/pokedex-cli index.tsx"
+    "etl": "bun --cwd apps/etl etl",
+    "pokedex:dev": "bun --cwd apps/pokedex-cli dev",
+    "pokedex": "bun --cwd apps/pokedex-cli start"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
