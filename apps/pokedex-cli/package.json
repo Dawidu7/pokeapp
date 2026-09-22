@@ -1,0 +1,12 @@
+{
+  "name": "pokedex",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "ink": "^7.1.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0"
+  }
+}
