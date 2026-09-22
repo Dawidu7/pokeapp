@@ -49,13 +49,14 @@ export const PokemonSchema = z
 
 export const PokemonFormSchema = z
   .object({
+    pokemon: ApiResourceSchema,
     form_names: z.array(
       z.object({ name: z.string(), language: NamedApiResourceSchema }),
     ),
   })
-  .transform(
-    ({ form_names }) =>
-      form_names.find(({ language }) => language === "en")?.name ?? null,
-  )
+  .transform(({ pokemon, form_names }) => ({
+    pokemonId: pokemon,
+    name: form_names.find(({ language }) => language === "en")?.name ?? null,
+  }))
 
 export type Pokemon = z.infer<typeof PokemonSchema>

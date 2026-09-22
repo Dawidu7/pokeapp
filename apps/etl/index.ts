@@ -1,9 +1,11 @@
 import { closeDb, db } from "@poke/db"
-import { extract, getFormNames } from "./extract"
+import { assertNoErrors, extract, getFormNames } from "./extract"
 import * as load from "./load"
 import * as schema from "./schema"
 
 async function etl() {
+  await assertNoErrors()
+
   const types = await extract("type", schema.TypeSchema)
   const moves = await extract("move", schema.MoveSchema)
   const pokemonSpecies = await extract(
@@ -12,6 +14,8 @@ async function etl() {
   )
   const pokemon = await extract("pokemon", schema.PokemonSchema)
   const formNames = await getFormNames(pokemon)
+
+  await assertNoErrors()
 
   await db.transaction(async tx => {
     await load.types(tx, types)
