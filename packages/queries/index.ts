@@ -5,10 +5,5 @@ export async function getPokemonList() {
     with: { pokemon: true },
   })
 
-  return pokemonSpecies.map(ps => ({
-    ...ps,
-    pokemon: Object.fromEntries(
-      ps.pokemon.map(p => [p.formName ?? "Default", p]),
-    ),
-  }))
+  return pokemonSpecies
 }
