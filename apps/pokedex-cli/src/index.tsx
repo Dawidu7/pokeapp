@@ -1,36 +1,44 @@
-import { Box, Text, render, useApp, useInput } from "ink"
+import { Box, Text, render } from "ink"
 import { useState } from "react"
 import { closeDb } from "@poke/db"
-import { getPokemonList } from "@poke/queries"
+import { type Pokemon, getPokemonList } from "@poke/queries"
+import { Input } from "./input"
 import { List } from "./list"
+import { parseQuery, score } from "./search"
 
-function App({
-  pokemonList,
-}: {
-  pokemonList: Awaited<ReturnType<typeof getPokemonList>>
-}) {
-  const { exit } = useApp()
-  useInput((input, key) => {
-    if (input === "q") exit()
-  })
+const LIST_SIZE = 10
 
-  const [selected, setSelected] = useState(pokemonList[0]!)
+function App({ pokemonList }: { pokemonList: Pokemon[] }) {
+  const [query, setQuery] = useState("")
+  const filters = parseQuery(query)
+  const filtered = pokemonList
+    .filter(p => {
+      return true
+    })
+    .map(p => ({ item: p, score: score(filters.search, p.name) }))
+    .filter(p => p.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .map(p => p.item)
 
-  const legend = ["⇅ - scroll list", "⇄ - scroll forms", "q - quit"]
+  const [selected, setSelected] = useState(filtered[0]!)
 
   return (
     <Box flexDirection="column" gap={1}>
       <Box>
-        <Box>
-          <List
-            items={pokemonList.map(p => ({
-              label: p.name,
-              key: p.slug,
-              value: p,
-            }))}
-            onChange={p => setSelected(p)}
-            limit={10}
-          />
+        <Box height={LIST_SIZE}>
+          {filtered.length > 0 ? (
+            <List
+              items={filtered.map(p => ({
+                label: p.name,
+                key: p.slug,
+                value: p,
+              }))}
+              onChange={p => setSelected(p)}
+              limit={LIST_SIZE}
+            />
+          ) : (
+            <Text> No Pokémon Found</Text>
+          )}
         </Box>
         <Box flexDirection="column">
           <List
@@ -45,7 +53,7 @@ function App({
           />
         </Box>
       </Box>
-      <Text>{legend.filter(Boolean).join(" | ")}</Text>
+      <Input query={query} onSearchChange={setQuery} />
     </Box>
   )
 }

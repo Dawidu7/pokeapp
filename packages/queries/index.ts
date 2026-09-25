@@ -7,3 +7,5 @@ export async function getPokemonList() {
 
   return pokemonSpecies
 }
+
+export type Pokemon = Awaited<ReturnType<typeof getPokemonList>>[number]

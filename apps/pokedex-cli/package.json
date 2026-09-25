@@ -11,7 +11,8 @@
     "@poke/db": "workspace:*",
     "@poke/env": "workspace:*",
     "@poke/queries": "workspace:*",
-    "ink": "^7.1.1"
+    "ink": "^7.1.1",
+    "ink-text-input": "^6.0.0"
   },
   "devDependencies": {
     "@types/react": "^19.3.0"
